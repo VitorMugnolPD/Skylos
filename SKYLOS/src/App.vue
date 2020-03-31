@@ -1,60 +1,110 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
+    <div id="container">
+      <nav>
+        <div class="brand">
+          <h2>Skylos</h2>
+        </div>
+        <ul>
+          <li>
+            <a href="#">Cadastro</a>
+          </li>
+          <li>
+            <a href="#">Login</a>
+          </li>
+        </ul>
+      </nav>
+      <section class="sec1"></section>
+      <section class="sec2"></section>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'app',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
-    }
-  }
-}
+  
+};
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
 }
 
-h1, h2 {
-  font-weight: normal;
+section.sec1 {
+  width: 100%;
+  height: 100vh;
+  box-sizing: border-box;
+  background: url("assets/c.png");
+  background-size: cover;
 }
 
-ul {
-  list-style-type: none;
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 0 100px;
+  box-sizing: border-box;
+}
+
+nav .brand h2 {
+  padding: 0;
+  margin: 0;
+  color: #fff;
+  float: left;
+  height: 100%;
+  line-height: 70px;
+}
+
+nav ul {
+  float: right;
+  display: flex;
+  margin: 0;
   padding: 0;
 }
 
-li {
-  display: inline-block;
-  margin: 0 10px;
+nav ul li {
+  list-style: none;
 }
 
-a {
-  color: #42b983;
+nav ul li a {
+  position: relative;
+  display: block;
+  height: 70px;
+  line-height: 70px;
+  padding: 0 20px;
+  box-sizing: border-box;
+  color: #fff;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: 0.5s;
+}
+
+nav ul li a:hover {
+  color: #262626;
+}
+
+nav ul li a:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  transform-origin: right;
+  z-index: -1;
+  transform: scaleX(0);
+  transition: transform 0.5s;
+}
+
+nav ul li a:hover:before {
+  transform-origin: left;
+  transform: scaleX(1);
 }
 </style>
