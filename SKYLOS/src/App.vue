@@ -7,7 +7,7 @@
         </div>
         <ul style="font-family: 'Candara';">
           <li>
-            <a href="#">Cadastro</a>
+            <a href="cadastro.html">Cadastro</a>
           </li>
           <li>
             <a href="#">Login</a>
