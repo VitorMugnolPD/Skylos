@@ -10,7 +10,7 @@
             <a href="cadastro.html">Cadastro</a>
           </li>
           <li>
-            <a href="#">Login</a>
+            <a href="login.html">Login</a>
           </li>
         </ul>
       </nav>
@@ -31,7 +31,7 @@
       <section class="sec2">
         <br><br><br>
         <br><br><br>
-        <center><button id="cad2">CADASTRE-SE AGORA</button></center>
+        <center><a href="cadastro.html"><button id="cad2">CADASTRE-SE AGORA</button></a></center>
         <br><br><br>
         <br><br><br>
         <br>      

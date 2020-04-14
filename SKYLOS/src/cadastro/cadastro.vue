@@ -8,12 +8,12 @@
               <option>Cuidador</option>
           </select><br>
           <label class="txtPequeno">Nome</label><br>
-          <input type="text" id="nome"><br>
+          <input type="text" id="nome" placeholder="Seu nome completo"><br>
           <label class="txtPequeno">E-mail</label><br>
-          <input type="email" id="email"><br>
+          <input type="email" id="email" placeholder="Seu e-mail"><br>
           <label class="txtPequeno">Senha</label><br>
-          <input type="password"><br><br>
-          <input type="submit">
+          <input type="password" placeholder="Sua senha"><br><br>
+          <input type="submit" id="enviar"><br>      
       </form>
   </div>
 </template>
@@ -25,8 +25,13 @@ export default {
 </script>
 
 <style>
+body {
+    background-image: linear-gradient(to right, rgb(133, 235, 133), rgb(91, 170, 91));
+}
+
 form {
-    background-color: blueviolet;
+    height: 310px;
+    background-image: linear-gradient(to right, rgb(190, 145, 201), rgb(214, 184, 248));
     border-color: rgba(0, 0, 0, 0);
     border-radius: 45px;
     margin-top: 80px;
@@ -35,7 +40,21 @@ form {
     text-align: center;
 }
 
+#enviar {
+    border-radius: 50px;
+    border-color: rgba(0, 0, 0, 0);
+    background-color: #f0b3ff;
+    font-size: 110%;
+    transition: 0.2s;
+}
+
+#enviar:hover {
+    font-size: 115%;
+    transition: 0.2s;
+}
+
 .txtPequeno {
-    font-size: 75%;
+    color: white;
+    font-size: 77%;
 }
 </style>
