@@ -13,7 +13,7 @@
           <input type="email" id="email" placeholder="Seu e-mail"><br>
           <label class="txtPequeno">Senha</label><br>
           <input type="password" placeholder="Sua senha"><br><br>
-          <input type="submit" id="enviar"><br>      
+          <input type="submit" id="enviar"><br>
       </form>
   </div>
 </template>
@@ -24,11 +24,7 @@ export default {
 }
 </script>
 
-<style>
-body {
-    background-image: linear-gradient(to right, rgb(133, 235, 133), rgb(91, 170, 91));
-}
-
+<style scoped>
 form {
     height: 310px;
     background-image: linear-gradient(to right, rgb(190, 145, 201), rgb(214, 184, 248));

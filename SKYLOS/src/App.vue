@@ -62,7 +62,7 @@
 export default {};
 </script>
 
-<style>
+<style scoped>
 #cad2 {
   border-radius: 100px;
   border-color: rgba(0, 0, 0, 0);
