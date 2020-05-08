@@ -13,6 +13,9 @@
           <input type="email" id="email" placeholder="Seu e-mail"><br>
           <label class="txtPequeno">Senha</label><br>
           <input type="password" placeholder="Sua senha"><br><br>
+          <label class="txtPequeno">Arrate o marcador para sua localização</label>
+          <div id="map"></div>
+          <pre id="coordinates" class="coordinates"></pre><br>
           <input type="submit" id="enviar"><br>
       </form>
   </div>
@@ -26,11 +29,11 @@ export default {
 
 <style scoped>
 form {
-    height: 310px;
+    height: 640px;
     background-image: linear-gradient(to right, rgb(190, 145, 201), rgb(214, 184, 248));
     border-color: rgba(0, 0, 0, 0);
     border-radius: 45px;
-    margin-top: 80px;
+    margin-top: 10px;
     margin-left: 450px;
     margin-right: 450px;
     text-align: center;
@@ -42,6 +45,9 @@ form {
     background-color: #f0b3ff;
     font-size: 110%;
     transition: 0.2s;
+    position: absolute;
+    top: 610px;
+    left: 650px;
 }
 
 #enviar:hover {
