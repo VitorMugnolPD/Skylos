@@ -4,7 +4,8 @@ var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v11',
     center: [-50, -15],
-    zoom: 2.2
+    zoom: 2.2,
+    attributionControl: false
 });
 
 var marker = new mapboxgl.Marker({
@@ -21,3 +22,16 @@ function onDragEnd() {
 }
 
 marker.on('dragend', onDragEnd);
+
+$().ready(function(){
+    $("#opcaoCadastro").change(function(){
+        if($("#opcaoCadastro").val() == "Cuidador")
+        {
+            $("#formAfinidade").removeAttr("hidden");
+        }
+        else
+        {
+            $("#formAfinidade").attr("hidden", "true");
+        }
+    })
+})

@@ -1,6 +1,6 @@
 <template>
   <div id="container">
-      <form>
+      <form id="formulario">
           <label class="txtPequeno">Opção de cadastro</label><br>
           <select id="opcaoCadastro">
               <option>Escolha uma opção de cadastro</option>
@@ -18,6 +18,10 @@
           <pre id="coordinates" class="coordinates"></pre><br>
           <input type="submit" id="enviar"><br>
       </form>
+      <form id="formAfinidade" hidden>
+          <label class="txtPequeno">Escreva abaixo os animais com<br>os quais você possui afinidade</label><br>
+          <input type="text" id="txtAfinidade" placeholder="e.g. Cachorros, gatos">
+      </form>
   </div>
 </template>
 
@@ -28,7 +32,18 @@ export default {
 </script>
 
 <style scoped>
-form {
+#formAfinidade {
+    position: absolute;
+    top: 100px;
+    right: 150px;
+    background-image: linear-gradient(to right, rgb(190, 145, 201), rgb(214, 184, 248));
+    border-radius: 15px;
+    height: 80px;
+    width: 210px;
+    text-align: center;
+}
+
+#formulario {
     height: 640px;
     background-image: linear-gradient(to right, rgb(190, 145, 201), rgb(214, 184, 248));
     border-color: rgba(0, 0, 0, 0);
