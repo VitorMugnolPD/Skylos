@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import cadastro from './cadastro/cadastro.vue'
 import login from './login/login.vue'
+import inicial_cliente from './inicial_cliente/inicial_cliente.vue'
 import VueRouter from 'vue-router'
 
 Vue.use(VueRouter);
@@ -19,4 +20,9 @@ new Vue({
 new Vue({
   el: '#login',
   render: h => h(login)
+})
+
+new Vue({
+  el: '#inicial_cliente',
+  render: h => h(inicial_cliente)
 })

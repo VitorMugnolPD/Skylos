@@ -20,7 +20,7 @@
       </form>
       <form id="formAfinidade" hidden>
           <label class="txtPequeno">Escreva abaixo os animais com<br>os quais você possui afinidade</label><br>
-          <input type="text" id="txtAfinidade" placeholder="e.g. Cachorros, gatos">
+          <input type="text" id="txtAfinidade" placeholder="ex: Cachorros, gatos">
       </form>
   </div>
 </template>
