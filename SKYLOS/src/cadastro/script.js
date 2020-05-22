@@ -14,8 +14,14 @@ var marker = new mapboxgl.Marker({
     .setLngLat([-50, -15])
     .addTo(map);
 
+var lngLat = marker.getLngLat();
+var nome;
+var email;
+var senha;
+var afinidade;
+
 function onDragEnd() {
-    var lngLat = marker.getLngLat();
+
     coordinates.style.display = 'block';
     coordinates.innerHTML =
         'Longitude: ' + lngLat.lng + '<br />Latitude: ' + lngLat.lat;
@@ -23,15 +29,45 @@ function onDragEnd() {
 
 marker.on('dragend', onDragEnd);
 
-$().ready(function(){
-    $("#opcaoCadastro").change(function(){
-        if($("#opcaoCadastro").val() == "Cuidador")
-        {
+$().ready(function () {
+    $("#opcaoCadastro").change(function () {
+        if ($("#opcaoCadastro").val() == "Cuidador") {
             $("#formAfinidade").removeAttr("hidden");
         }
-        else
-        {
+        else {
             $("#formAfinidade").attr("hidden", "true");
         }
     })
 })
+
+$().ready(function () {
+    $(".enviar").click(function () {
+
+        nome = $(".nome").val();
+        email = $(".email").val();
+        senha = $(".senha").val();
+        
+        if ($("#opcaoCadastro").val() == "Cuidador") {
+            afinidade = $(".afinidade").val();
+            const data ={
+              nome: this.nome,
+              senha: this.senha,
+              latitude: lngLat.lat,
+              longitude: lngLat.lng,
+              afinidade: this.afinidade
+            }
+            $.post('http://localhost:5001/api/cuidador/',data);
+        }
+        else{
+            const data ={
+                nome: this.nome,
+                senha: this.senha,
+                latitude: lngLat.lat,
+                longitude: lngLat.lng
+            }
+            $.post('http://localhost:5001/api/cliente/',data);
+        }
+
+    })
+})
+
