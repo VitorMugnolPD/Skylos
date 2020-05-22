@@ -1,5 +1,6 @@
 <template>
   <div id="container">
+      <div id="AnimalGrande">Cadastrar<br>animal</div>
       <form id="cadastro_animais">
           <label class="txtPequeno">Selecione o tipo do animal:</label><br>
           <select id="especie_animal">
@@ -14,10 +15,17 @@
           <input type="text" id="raca_animal" placeholder="ex: Papagaio, Pitbull"><br>
           <label class="txtPequeno">Descreva o temperamento:</label><br>
           <input type="text" id="temperamento_animal" placeholder="ex: Calmo, bravo"><br><br>
-          <input type="submit">
+          <input type="submit" id="enviarAnimal">
       </form>
+      <div id="ServicoGrande">Solicitar<br>serviço</div>
       <form id="solicitar_servico">
-          teste
+          <label class="txtPequeno">Animal:</label><br>
+          <select id="animaisServido"></select><br>
+          <label class="txtPequeno">Data de início:</label>
+          <input type="date"><br>
+          <label class="txtPequeno">Período (em dias):</label><br>
+          <input type="number"><br><br>
+          <input type="submit" id="enviarServico">
       </form>
   </div>
 </template>
@@ -29,23 +37,42 @@ export default {
 </script>
 
 <style scoped>
+#ServicoGrande {
+    position: fixed;
+    top: 100px;
+    right: 344px;
+    font-size: 200%;
+    text-align: center;
+}
+
+#AnimalGrande {
+    position: fixed;
+    top: 100px;
+    left: 335px;
+    font-size: 200%;
+    text-align: center;
+}
+
 #cadastro_animais {
-    position: absolute;
+    position: fixed;
     top: 200px;
     left: 300px;
     text-align: center;
     height: 250px;
     width: 200px;
     background-color: white;
+    border-radius: 10px;
 }
 
 #solicitar_servico {
+    position: fixed;
     top: 200px;
     right: 300px;
     text-align: center;
     height: 250px;
     width: 200px;
     background-color: white;
+    border-radius: 10px;
 }
 
 /* form {
