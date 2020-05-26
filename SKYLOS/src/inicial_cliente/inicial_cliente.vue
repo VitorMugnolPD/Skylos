@@ -27,6 +27,7 @@
           <input type="number"><br><br>
           <input type="submit" id="enviarServico">
       </form>
+      <img src="src/assets/logoff.png" id="logoff">
   </div>
 </template>
 
@@ -37,6 +38,20 @@ export default {
 </script>
 
 <style scoped>
+#logoff {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    width: 3%;
+    transition: 0.2s;
+}
+
+#logoff:hover {
+    width: 3.6%;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
 #ServicoGrande {
     position: fixed;
     top: 100px;
