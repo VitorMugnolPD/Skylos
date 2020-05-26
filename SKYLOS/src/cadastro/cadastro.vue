@@ -13,7 +13,7 @@
           <input type="email" id="email" placeholder="Seu e-mail"><br>
           <label class="txtPequeno">Senha</label><br>
           <input type="password" placeholder="Sua senha"><br><br>
-          <label class="txtPequeno">Arrate o marcador para sua localização</label>
+          <label class="txtPequeno">Arraste o marcador para sua localização</label>
           <div id="map"></div>
           <pre id="coordinates" class="coordinates"></pre><br>
           <input type="submit" id="enviar"><br>
