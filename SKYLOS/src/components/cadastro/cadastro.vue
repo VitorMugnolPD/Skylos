@@ -30,29 +30,38 @@
         name="senha"
         v-model="senha"
       /><br /><br />
-      <label class="txtPequeno">Arraste o marcador para sua localização</label>
-      <div>
-        <input type="text" name="latitude" id="lat" maxlength="8" v-model="latitude" />
-        <input type="text" name="longitude" id="long" maxlength="8" v-model="longitude" />
-      </div>
+      <label class="txtPequeno">Arraste o marcador para sua localização</label
+      ><br />
+      <input
+        type="text"
+        name="latitude"
+        id="lat"
+        maxlength="8"
+      />
+      <input
+        type="text"
+        name="longitude"
+        id="long"
+        maxlength="8"
+      />
       <div id="map"></div>
       <pre id="coordinates" class="coordinates"></pre>
       <br />
-      <button id="enviar" @click="this.enviar">enviar</button><br />
+      <button id="enviar" @click="this.enviar">Enviar</button><br />
     </div>
-    <form id="formAfinidade" hidden>
+    <div id="formAfinidade" hidden>
       <label class="txtPequeno"
         >Escreva abaixo os animais com<br />os quais você possui
         afinidade</label
       ><br />
-      <input type="text" id="txtAfinidade" placeholder="ex: Cachorros, gatos" />
-    </form>
+      <input type="text" id="txtAfinidade" placeholder="ex: Cachorros, gatos">
+    </div>
   </div>
 </template>
 
 <script>
 import api from "../../services/api.js";
-import $ from 'jquery';
+import $ from "jquery";
 export default {
   data() {
     return {
@@ -60,8 +69,6 @@ export default {
       nome: "",
       email: "",
       senha: "",
-      latitude: 0.0,
-      longitude: 0.0
     };
   },
   mounted() {
@@ -89,8 +96,8 @@ export default {
         "Longitude: " + lngLat.lng + "<br />Latitude: " + lngLat.lat;
       var lati = lngLat.lat.toString();
       var longi = lngLat.lng.toString();
-      $("#lat").val(lati.substring(0, 9));
-      $("#long").val(longi.substring(0, 9));
+      $("#lat").val(lati);
+      $("#long").val(longi);
     }
 
     marker.on("dragend", onDragEnd);
@@ -107,15 +114,48 @@ export default {
   },
   methods: {
     async enviar() {
-      var p = {
-        nome: this.nome,
-        senha: this.senha,
-        email: this.email,
-        latitude: this.latitude,
-        longitude: this.longitude
-      };
-      console.log(p);
-      const r = await api.post("/cliente/", p);
+      if(this.nome == "" || this.senha == "" || this.email == "")
+      {
+        alert("Preencha os campos!");
+        return;
+      }
+      var lat = parseFloat($("#lat").val());
+      var long = parseFloat($("#long").val());
+      if($("#opcaoCadastro").val() == "Cliente")
+      {
+        var p = {
+          nome: this.nome,
+          senha: this.senha,
+          email: this.email,
+          latitude: lat,
+          longitude: long
+        };
+        const r = await api.post("/cliente/", p);
+        alert("Cadastro feito com sucesso!");
+      }
+      else if($("#opcaoCadastro").val() == "Cuidador")
+      {
+        if($("#txtAfinidade").val() == "")
+        {
+          alert("Preencha todos os campos!");
+          return;
+        }
+        var afi = $("#txtAfinidade").val();
+        var p = {
+          nome: this.nome,
+          senha: this.senha,
+          email: this.email,
+          latitude: lat,
+          longitude: long,
+          afinidadeComBichos: afi
+        };
+        const r = await api.post("/cuidador/", p);
+        alert("Cadastro feito com sucesso!");
+      }
+      else
+      {
+        alert("Selecione um tipo de cadastro!");
+      }
     }
   }
 };
