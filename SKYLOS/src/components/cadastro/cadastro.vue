@@ -119,6 +119,11 @@ export default {
         alert("Preencha os campos!");
         return;
       }
+      if($("#lat").val() == "" || $("#long").val() == "")
+      {
+        alert("Selecione um local no mapa!");
+        return;
+      }
       var lat = parseFloat($("#lat").val());
       var long = parseFloat($("#long").val());
       if($("#opcaoCadastro").val() == "Cliente")
