@@ -1,6 +1,6 @@
 <template>
   <div id="container">
-      <form style="height: 250px;">
+      <div style="height: 250px;" id="form">
           <label class="txtPequeno">Opção de login</label><br>
           <select id="opcaoCadastro">
               <option>Escolha uma opção de login</option>
@@ -8,22 +8,41 @@
               <option>Cuidador</option>
           </select><br>
           <label class="txtPequeno">E-mail</label><br>
-          <input type="email" placeholder="Seu e-mail"><br>
+          <input type="email" placeholder="Seu e-mail" v-model="email"><br>
           <label class="txtPequeno">Senha</label><br>
-          <input type="password" placeholder="Sua senha"><br><br>
-          <input type="submit" id="enviar">
-      </form>
+          <input type="password" placeholder="Sua senha" v-model="senha"><br><br>
+          <button id="enviar" @click="this.login">Enviar</button>
+      </div>
   </div>
 </template>
 
 <script>
+import api from "../../services/api.js";
+import $ from "jquery";
 export default {
-
+    data() {
+        return {
+            email: "",
+            senha: "",
+            dados: []
+        }
+    },
+    methods: {
+        login() {
+            var sapato;
+            api.get("/cliente/" + this.email + "/" + this.senha)
+            .then(res => res.json)
+            .then(d => (sapato = d))
+            .catch(err => console.log(err));
+            console.log(sapato);
+            sessionStorage.setItem("dados", sapato);
+        }
+    }
 }
 </script>
 
 <style scoped>
-form {
+#form {
     height: 310px;
     background-image: linear-gradient(to right, rgb(190, 145, 201), rgb(214, 184, 248));
     border-color: rgba(0, 0, 0, 0);
