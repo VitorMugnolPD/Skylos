@@ -44,8 +44,8 @@ export default {
           .then(function(response) {
             if(response.status != 200)
             {
-                alert("Usuário ou senha incorretos!");
-                return;
+              alert("Usuário ou senha incorretos!");
+              return;
             }
             return response.data;
           })
@@ -53,6 +53,8 @@ export default {
         sessionStorage.setItem("dadosCliente", dadosCliente);
         sessionStorage.setItem("ClienteID", dadosCliente.id);
         sessionStorage.setItem("ClienteNome", dadosCliente.nome);
+        sessionStorage.setItem("ClienteLatitude", dadosCliente.latitude);
+        sessionStorage.setItem("ClienteLongitude", dadosCliente.longitude);
         router.push({ path: '/inicial_cliente'});
       }
       else if($("#opcaoCadastro").val() == "Cuidador")
@@ -60,6 +62,11 @@ export default {
         let dadosCuidador = await api
           .get("/cuidador/" + this.email + "/" + this.senha)
           .then(function(response) {
+            if(response.status != 200)
+            {
+              alert("Usuário ou senha incorretos!");
+              return;
+            }
             return response.data;
           })
           .catch(err => console.log(err));

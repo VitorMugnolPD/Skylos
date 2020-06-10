@@ -23,12 +23,16 @@
       <div id="ServicoGrande">Solicitar<br>serviço</div>
       <div id="solicitar_servico">
           <label class="txtPequeno">Animal:</label><br>
-          <select id="animaisServido"></select><br>
+          <select id="animaisServico"></select><br>
           <label class="txtPequeno">Data de início:</label>
-          <input type="date"><br>
+          <input type="date" id="dataServico"><br>
           <label class="txtPequeno">Período (em dias):</label><br>
-          <input type="number"><br><br>
-          <input type="submit" id="enviarServico">
+          <input type="number" id="periodoServico"><br><br>
+          <button id="enviarSolicitacao" @click="solicitacao">Enviar</button>
+      </div>
+      <div id="cuidadores" hidden>
+          <div id="cuidadoresLista"></div>
+          <label id="exit">X</label>
       </div>
       <img src="src/assets/logoff.png" id="logoff" @click="logoff">
   </div>
@@ -43,8 +47,12 @@ export default {
         return {
             nome: "",
             raca: "",
-            temperamento: ""
+            temperamento: "",
+            animaisCliente: []
         }
+    },
+    created() {
+        this.listarAnimais();
     },
     mounted() {
         $().ready(function() {
@@ -54,6 +62,9 @@ export default {
             }
             var nomeCuidador = sessionStorage.getItem("ClienteNome");
             $("#ola").html("Olá " + nomeCuidador + "!");
+            $("#exit").click(function() {
+                $("#cuidadores").attr("hidden", "true");
+            })
         })
     },
     methods: {
@@ -61,6 +72,8 @@ export default {
             sessionStorage.removeItem("dadosCliente");
             sessionStorage.removeItem("ClienteID");
             sessionStorage.removeItem("ClienteNome");
+            sessionStorage.removeItem("ClienteLatitude");
+            sessionStorage.removeItem("ClienteLongitude");
             router.push({ path: '/' });
         },
         async cadastrarAnimal() {
@@ -80,12 +93,89 @@ export default {
             }
             const r = await api.post("/animal/", a);
             alert("Cadastro feito com sucesso!");
+            location.reload();
+        },
+        async listarAnimais() {
+            let animais = await api.get("/animal")
+            .then(function(response){
+                return response.data;
+            })
+            .catch(err => console.log(err));
+            var cont = 0;
+            for(var i = 0; i < animais.length; i++)
+            {
+                if(animais[i].idCliente == sessionStorage.getItem("ClienteID"))
+                {
+                    this.animaisCliente[cont] = animais[i];
+                    cont++;
+                }
+            }
+            var s = "";
+            for(var i = 0; i < this.animaisCliente.length; i++)
+            {
+                s += "<option value=" + i + ">" + this.animaisCliente[i].nome + "</option>";
+            }
+            $("#animaisServico").html(s);
+        },
+        async solicitacao() {
+            if($("#dataServico").val() == "" || $("#periodoServico").val() == "")
+            {
+                alert("Preencha todos os campos!");
+                return;
+            }
+            $("#cuidadores").removeAttr("hidden");
+            var i = parseInt($("#animaisServico").val());
+            let c = await api.get("/cuidador/"
+            + sessionStorage.getItem("ClienteLongitude")
+            + "/" + sessionStorage.getItem("ClienteLongitude")
+            + "/" + this.animaisCliente[i].especie)
+            .then(function(response){
+                return response.data;
+            })
+            .catch(err => console.log(err));
+            var s = "";
+            for(var n = 0; n < c.length; n++)
+            {
+                s += "<br><div class='cuidador' "
+                + "style='background-color: rgb(164, 236, 194)'; width='100px';>Nome: "
+                + c[n].nome
+                + "<br>Valor a sugerir: <input type='text' class='txtValor'>"
+                + "<br><br><button @click='servico(" + c[n].id + ")'>Enviar proposta</button>"
+                + "</div><br>";
+            }
+            $("#cuidadoresLista").html(s);
+        },
+        async servico(idCuidador) {
+            console.log(idCuidador + "");
         }
     }
 }
 </script>
 
 <style scoped>
+#exit:hover {
+    font-size: 120%;
+    cursor: pointer;
+    transition: 0.1s;
+}
+
+#exit {
+    position: fixed;
+    left: 920px;
+    top: 105px;
+    transition: 0.1s;
+}
+
+#cuidadores {
+    background-image: linear-gradient(to right, rgb(232, 193, 241), rgb(214, 184, 248));
+    width: 500px;
+    position: absolute;
+    top: 100px;
+    left: 450px;
+    z-index: 1;
+    border-radius: 10px;
+}
+
 #logoff {
     position: fixed;
     bottom: 15px;
