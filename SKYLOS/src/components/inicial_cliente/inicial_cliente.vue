@@ -25,13 +25,16 @@
           <label class="txtPequeno">Animal:</label><br>
           <select id="animaisServico"></select><br>
           <label class="txtPequeno">Data de início:</label>
-          <input type="date" id="dataServico"><br>
+          <input type="date" id="dataServico" v-model="dataI"><br>
           <label class="txtPequeno">Período (em dias):</label><br>
-          <input type="number" id="periodoServico"><br><br>
+          <input type="number" id="periodoServico" min="1" v-model="periodo"><br><br>
           <button id="enviarSolicitacao" @click="solicitacao">Enviar</button>
       </div>
       <div id="cuidadores" hidden>
-          <div id="cuidadoresLista"></div>
+          <div id="cuidadoresLista" v-for="cuidador in getCuidadoresEncontrados" :key="cuidador.id">
+              <lista-cuidadores :cuidador="cuidador" :dataInicio="dataI" :periodo="periodo" :clienteID="clienteID" :animalID="animalID">
+              </lista-cuidadores>
+          </div>
           <label id="exit">X</label>
       </div>
       <img src="src/assets/logoff.png" id="logoff" @click="logoff">
@@ -42,13 +45,22 @@
 import api from "../../services/api.js";
 import router from "../../router/index.js";
 import $ from "jquery";
+import listaCuidadores from "./listaCuidadores.vue"
 export default {
+    components: {
+        "lista-cuidadores": listaCuidadores
+    },
     data() {
         return {
             nome: "",
             raca: "",
             temperamento: "",
-            animaisCliente: []
+            animaisCliente: [],
+            cuidadoresEncontrados: [],
+            dataI: "",
+            periodo: "",
+            clienteID: "",
+            animalID: ""
         }
     },
     created() {
@@ -133,20 +145,25 @@ export default {
                 return response.data;
             })
             .catch(err => console.log(err));
-            var s = "";
-            for(var n = 0; n < c.length; n++)
-            {
-                s += "<br><div class='cuidador' "
-                + "style='background-color: rgb(164, 236, 194)'; width='100px';>Nome: "
-                + c[n].nome
-                + "<br>Valor a sugerir: <input type='text' class='txtValor'>"
-                + "<br><br><button @click='servico(" + c[n].id + ")'>Enviar proposta</button>"
-                + "</div><br>";
-            }
-            $("#cuidadoresLista").html(s);
-        },
-        async servico(idCuidador) {
-            console.log(idCuidador + "");
+            this.cuidadoresEncontrados = c;
+            this.clienteID = sessionStorage.getItem("ClienteID");
+            this.animalID = this.animaisCliente[i].id;
+            // var s = "";
+            // for(var n = 0; n < c.length; n++)
+            // {
+            //     s += "<br><div class='cuidador' "
+            //     + "style='background-color: rgb(164, 236, 194)'; width='100px';>Nome: "
+            //     + c[n].nome
+            //     + "<br>Valor a sugerir: <input type='text' class='txtValor'>"
+            //     + "<br><br><button @click='servico(" + c[n].id + ")'>Enviar proposta</button>"
+            //     + "</div><br>";
+            // }
+            // $("#cuidadoresLista").html(s);
+        }
+    },
+    computed: {
+        getCuidadoresEncontrados() {
+            return this.cuidadoresEncontrados;
         }
     }
 }

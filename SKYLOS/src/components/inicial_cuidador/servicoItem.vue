@@ -47,14 +47,6 @@ export default {
       this.araca = a.raca;
       this.atemperamento = a.temperamento;
     },
-    async nomeCliente(idCliente) {
-      let c = await api.get("/cliente/" + idCliente)
-      .then(function(response) {
-        return response.data;
-      })
-      .catch(err => console.log(err));
-      this.cnome = c.nome;
-    },
     async negar(id) {
       const c = await api.delete("/servico/" + id);
       alert("Proposta negada.");
