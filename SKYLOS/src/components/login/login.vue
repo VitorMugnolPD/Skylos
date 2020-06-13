@@ -45,6 +45,7 @@ export default {
             if(response.status != 200)
             {
               alert("Usuário ou senha incorretos!");
+              location.reload();
               return;
             }
             return response.data;
@@ -65,6 +66,7 @@ export default {
             if(response.status != 200)
             {
               alert("Usuário ou senha incorretos!");
+              location.reload();
               return;
             }
             return response.data;
