@@ -77,6 +77,8 @@ export default {
             $("#exit").click(function() {
                 $("#cuidadores").attr("hidden", "true");
             })
+            var d = Date.now();
+            $("#dataServico").attr("min", d);
         })
     },
     methods: {
@@ -148,17 +150,6 @@ export default {
             this.cuidadoresEncontrados = c;
             this.clienteID = sessionStorage.getItem("ClienteID");
             this.animalID = this.animaisCliente[i].id;
-            // var s = "";
-            // for(var n = 0; n < c.length; n++)
-            // {
-            //     s += "<br><div class='cuidador' "
-            //     + "style='background-color: rgb(164, 236, 194)'; width='100px';>Nome: "
-            //     + c[n].nome
-            //     + "<br>Valor a sugerir: <input type='text' class='txtValor'>"
-            //     + "<br><br><button @click='servico(" + c[n].id + ")'>Enviar proposta</button>"
-            //     + "</div><br>";
-            // }
-            // $("#cuidadoresLista").html(s);
         }
     },
     computed: {

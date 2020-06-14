@@ -3,7 +3,7 @@
       <br>
       Nome: {{ cuidador.nome }}<br>
       Média das avaliações: <label id="avali">{{ media }}/5</label><br>
-      Valor a sugerir: R$<input type="number" id="valor" min="1"><br><br>
+      Valor a sugerir: R$<input type="number" id="valor" min="1" v-model="valor"><br><br>
       <button id="send" @click="enviarProposta">Enviar proposta</button>
       <br>
   </div>
@@ -16,7 +16,8 @@ export default {
     props: ["cuidador", "dataInicio", "periodo", "clienteID", "animalID"],
     data() {
         return {
-            media: 0.0
+            media: 0.0,
+            valor: ""
         }
     },
     created() {
@@ -24,17 +25,22 @@ export default {
     },
     methods: {
         async enviarProposta() {
-            // var p = {
-            //     idCuidador: this.cuidador.id,
-            //     idCliente: parseInt(this.idCliente),
-            //     idAnimal: parseInt(this.idAnimal),
-            //     dataInicio: this.dataInicio,
-            //     periodo: parseInt(this.periodo),
-            //     dataFim: "15/6/2020",
-            //     preco: parseFloat($("#valor").val())
-            // };
-            // const r = await api.post("/servico", p);
-            // alert("Proposta enviada com sucesso!");
+            if(this.valor == "")
+            {
+                alert("Preencha todos os campos!");
+                return;
+            }
+            var p = {
+                idCuidador: this.cuidador.id,
+                idCliente: parseInt(this.clienteID),
+                idAnimal: parseInt(this.animalID),
+                dataInicio: this.dataInicio,
+                periodo: parseInt(this.periodo),
+                preco: parseFloat(this.valor)
+            };
+            console.log(p);
+            const r = await api.post("/servico", p);
+            alert("Proposta enviada com sucesso!");
         },
         async mediaAvaliacao() {
             let a = await api.get("/avaliacao/")

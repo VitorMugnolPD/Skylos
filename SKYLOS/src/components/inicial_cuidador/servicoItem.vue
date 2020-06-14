@@ -1,7 +1,7 @@
 <template>
   <div id="s">
       Inicio: {{ servico.dataInicio }} ;<br>
-      Fim: {{ servico.dataFim }} ;<br>
+      Período: {{ servico.periodo }} dia(s);<br>
       Nome do cliente: {{ cnome }} ;<br>
       Nome do animal: {{ anome }} ;<br>
       Especie do animal: {{ aespecie }} ;<br>
