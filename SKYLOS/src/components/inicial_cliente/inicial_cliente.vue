@@ -1,6 +1,7 @@
 <template>
   <div id="container">
-      <label id="ola"></label>
+      <label id="ola" style="position: fixed;"></label><br>
+      <button id="avaliar" @click="abrirAvaliacoes" style="position: fixed;">Avaliar cuidadores</button>
       <div id="AnimalGrande">Cadastrar<br>animal</div>
       <div id="cadastro_animais">
           <label class="txtPequeno">Selecione o tipo do animal:</label><br>
@@ -32,10 +33,19 @@
       </div>
       <div id="cuidadores" hidden>
           <div id="cuidadoresLista" v-for="cuidador in getCuidadoresEncontrados" :key="cuidador.id">
-              <lista-cuidadores :cuidador="cuidador" :dataInicio="dataI" :periodo="periodo" :clienteID="clienteID" :animalID="animalID">
-              </lista-cuidadores>
+              <br><center><lista-cuidadores :cuidador="cuidador" :dataInicio="dataI" :periodo="periodo" :clienteID="clienteID" :animalID="animalID">
+              </lista-cuidadores></center><br>
           </div>
           <label id="exit">X</label>
+      </div>
+      <div id="avaliacoes" hidden>
+          <br>
+          Aqui você pode avaliar os cuidadores dos quais você já solicitou um serviço.
+          <br><br>
+          <div id="servicosAvaliacoes" v-for="servico in getServicos" :key="servico.id">
+              <center><lista-servicos :servico="servico"></lista-servicos></center><br>
+          </div>
+          <label id="exitL">X</label>
       </div>
       <img src="src/assets/logoff.png" id="logoff" @click="logoff">
   </div>
@@ -45,10 +55,12 @@
 import api from "../../services/api.js";
 import router from "../../router/index.js";
 import $ from "jquery";
-import listaCuidadores from "./listaCuidadores.vue"
+import listaCuidadores from "./listaCuidadores.vue";
+import listaServicos from "./listaServicos.vue";
 export default {
     components: {
-        "lista-cuidadores": listaCuidadores
+        "lista-cuidadores": listaCuidadores,
+        "lista-servicos": listaServicos
     },
     data() {
         return {
@@ -60,11 +72,13 @@ export default {
             dataI: "",
             periodo: "",
             clienteID: "",
-            animalID: ""
+            animalID: "",
+            servicos: []
         }
     },
     created() {
         this.listarAnimais();
+        this.listarAvaliacoes();
     },
     mounted() {
         $().ready(function() {
@@ -76,7 +90,10 @@ export default {
             $("#ola").html("Olá " + nomeCuidador + "!");
             $("#exit").click(function() {
                 $("#cuidadores").attr("hidden", "true");
-            })
+            });
+            $("#exitL").click(function() {
+                $("#avaliacoes").attr("hidden", "true");
+            });
             var d = Date.now();
             $("#dataServico").attr("min", d);
         })
@@ -150,17 +167,72 @@ export default {
             this.cuidadoresEncontrados = c;
             this.clienteID = sessionStorage.getItem("ClienteID");
             this.animalID = this.animaisCliente[i].id;
+        },
+        async listarAvaliacoes() {
+            let s = await api.get("/servico/")
+            .then(function(response) {
+                return response.data;
+            })
+            .catch(err => console.log(err));
+            for(var i = 0; i < s.length; i++)
+            {
+                if(s[i].idCliente == sessionStorage.getItem("ClienteID"))
+                {
+                    this.servicos.push(s[i]);
+                }
+            }
+        },
+        abrirAvaliacoes() {
+            
+            $("#avaliacoes").removeAttr("hidden");
         }
     },
     computed: {
         getCuidadoresEncontrados() {
             return this.cuidadoresEncontrados;
+        },
+        getServicos() {
+            return this.servicos;
         }
     }
 }
 </script>
 
 <style scoped>
+#ola {
+    font-size: 120%;
+    margin: 10px;
+}
+
+#avaliar {
+    margin: 10px;
+    margin-top: 30px;
+    background-image: linear-gradient(to right, rgb(232, 193, 241), rgb(214, 184, 248));
+}
+
+#exitL:hover {
+    font-size: 120%;
+    cursor: pointer;
+    transition: 0.1s;
+}
+
+#exitL {
+    position: fixed;
+    left: 920px;
+    top: 105px;
+    transition: 0.1s;
+}
+
+#avaliacoes {
+    background-image: linear-gradient(to right, rgb(232, 193, 241), rgb(214, 184, 248));
+    width: 500px;
+    position: absolute;
+    top: 100px;
+    left: 450px;
+    z-index: 2;
+    border-radius: 10px;
+}
+
 #exit:hover {
     font-size: 120%;
     cursor: pointer;

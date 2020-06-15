@@ -1,6 +1,5 @@
 <template>
   <div id="l">
-      <br>
       Nome: {{ cuidador.nome }}<br>
       Média das avaliações: <label id="avali">{{ media }}/5</label><br>
       Valor a sugerir: R$<input type="number" id="valor" min="1" v-model="valor"><br><br>
@@ -41,6 +40,7 @@ export default {
             console.log(p);
             const r = await api.post("/servico", p);
             alert("Proposta enviada com sucesso!");
+            location.reload();
         },
         async mediaAvaliacao() {
             let a = await api.get("/avaliacao/")
@@ -73,5 +73,12 @@ export default {
 </script>
 
 <style>
+
+#l {
+  background-color: rgb(167, 236, 167);
+  text-align: center;
+  width: 350px;
+  border-radius: 10px;
+}
 
 </style>

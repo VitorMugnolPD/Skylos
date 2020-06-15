@@ -71,6 +71,10 @@ export default {
 </script>
 
 <style>
+#ola {
+    font-size: 120%;
+    margin: 10px;
+}
 
 #logoff {
     position: fixed;

@@ -1,5 +1,6 @@
 <template>
   <div id="s">
+      <br>
       Inicio: {{ servico.dataInicio }} ;<br>
       Período: {{ servico.periodo }} dia(s);<br>
       Nome do cliente: {{ cnome }} ;<br>
@@ -57,6 +58,14 @@ export default {
 </script>
 
 <style>
+#s {
+  background-image: linear-gradient(to right, rgb(232, 193, 241), rgb(214, 184, 248));
+  text-align: center;
+  width: 450px;
+  border-radius: 10px;
+  margin: 15px;
+}
+
 #del:hover {
   font-size: 130%;
   background-color: red;
